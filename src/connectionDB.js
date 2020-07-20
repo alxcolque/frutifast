@@ -18,7 +18,7 @@ pool.getConnection((err, connection) => {
 			console.error('Ha ocurrido un error más grave que tu');
 		}
 	}
-	if(connection) connection.release()
+	else if(connection) connection.release()
 	console.log('Base de datos conectada');
 	return;
 });
