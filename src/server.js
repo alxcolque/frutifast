@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
-const exphbs = require('express-handlebars');
+const ejs = require('ejs');
 
 // Importing routes
 
@@ -11,17 +11,12 @@ const app = express();
 
 app.set('port', process.env.PORT || 4000);
 
+app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'views'));
+app.set(express.static(path.join(__dirname,'public')));
 
-app.engine('.hbs', exphbs({
-	defaultLayout: 'main',
-	layoutsDir: path.join(app.get('views'), '/layouts'),
-	partialsDir: path.join(app.get('views'), '/partials'),
-	extname: '.hbs',
-	helpers: require('./helpers/handlebars')
-}));
 
-app.set('view engine','.hbs');
+
 
 //Midlewares
 app.use(morgan('dev'));
@@ -36,8 +31,12 @@ app.use((req,res,next)=>{
 //Routes
 
 app.use(require('./routes/index.routes'));
+
+app.use(require("./routes/auth.routes"));
+
 app.use(require('./routes/auth.routes'));
 app.use('/items',require('./routes/items.routes'));
+app.use("/tipos", require("./routes/tipos.routes"));
 
 // Static Files
 app.use(express.static(path.join(__dirname,'public')));
