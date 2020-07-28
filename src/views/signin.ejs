@@ -33,7 +33,6 @@
 </head>
 
 <body class="bg-dark">
-
     <div class="sufee-login d-flex align-content-center flex-wrap">
         <div class="container">
             <div class="login-content">
@@ -43,14 +42,15 @@
                     </a>
                 </div>
                 <div class="login-form">
-                    <form>
+                    <%- include('partials/messages.ejs'); %>
+                    <form action="/signin" method="POST">
                         <div class="form-group">
                             <label>Nombre de usuario</label>
-                            <input type="text" class="form-control" placeholder="Nombre de Usuario">
+                            <input type="text" name="username" class="form-control" placeholder="Nombre de Usuario">
                         </div>
                         <div class="form-group">
                             <label>Clave</label>
-                            <input type="password" class="form-control" placeholder="Password">
+                            <input type="password" name="password" class="form-control" placeholder="Password">
                         </div>
                         <div class="checkbox">
                             <label>

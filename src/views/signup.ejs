@@ -39,22 +39,23 @@
                     </a>
                 </div>
                 <div class="login-form">
-                    <form>
+                    
+                    <form action="/signup" method="POST">
                         <div class="form-group">
                             <label>Nombre</label>
-                            <input type="text" class="form-control" placeholder="Nombre">
+                            <input type="text" name="name" class="form-control" placeholder="Nombre">
                         </div>
                         <div class="form-group">
                             <label>Nombre de usuario</label>
-                            <input type="text" class="form-control" placeholder="Para iniciar sesión">
+                            <input type="text" name="user" class="form-control" placeholder="Para iniciar sesión">
                         </div>
                         <div class="form-group">
                             <label>Clave</label>
-                            <input type="password" class="form-control" placeholder="Password">
+                            <input type="password" name="pass" class="form-control" placeholder="Password">
                         </div>
                         <div class="form-group">
-                            <label>Repetir Clave</label>
-                            <input type="password" class="form-control" placeholder="Repetir Password">
+                            <label>Confirmar Clave</label>
+                            <input type="password" name="confirm_pass"class="form-control" placeholder="Repetir Password">
                         </div>
                         <div class="checkbox">
                             <label>

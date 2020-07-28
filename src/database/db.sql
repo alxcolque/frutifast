@@ -9,7 +9,8 @@ CREATE TABLE users(
 	name VARCHAR(50) NOT NULL,
 	user_name VARCHAR(50) NOT NULL,
 	password VARCHAR(50) NOT NULL,
-	rol CHAR(1)
+	rol CHAR(1),
+	pic VARCHAR(100),
 );
 
 CREATE TABLE warehouses(
