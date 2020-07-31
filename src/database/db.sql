@@ -1,3 +1,4 @@
+
 -- Creating the database
 CREATE DATABASE dbff;
 

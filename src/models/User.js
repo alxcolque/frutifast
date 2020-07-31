@@ -1,6 +1,15 @@
 const connection = require("../connectionDB");
-
 module.exports = {
+  verifyUser(user, callback) {
+    connection.query(
+      "SELECT user_name FROM users WHERE user_name=?",
+      [user],
+      (err, result) => {
+        if (err) callback(err, null);
+        else callback(null, result[0]);
+      }
+    );
+  },
   register(name, user, pass, rol) {
     return new Promise((resolve, reject) => {
       connection.query(
@@ -18,10 +27,10 @@ module.exports = {
       connection.query(
         "SELECT * FROM users WHERE user_name=? and password=?",
         [user_name, pass],
-        (err, user_name) => {
+        async (err, result) => {
           if (err) reject(err);
-          else if (user_name.length >= 1) resolve(user_name[0]);
-               else resolve(false);
+          else if (user_name.length >= 1) resolve(result[0]);
+          else resolve(false);
         }
       );
     });

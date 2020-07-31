@@ -20,33 +20,17 @@ router.get("/signup", renderSignUpForm);
 router.post("/signup", signup);
 
 router.get("/signin", renderSignInForm);
+
+router.post("/signin", signin);
 //Login authenticate
 
-passport.serializeUser(function (user, done) {
-  done(null, user);
-});
 
-passport.deserializeUser(function (user, done) {
-  done(null, user);
-});
 
 //Ecriptacion
-function sha256(string) {
-  return crypto.createHash("sha256").update(string).digest("hex");
-}
 
-passport.use(
-  new LocalStrategy((username, password, done) => {
-    User.login(username, sha256(password)).then((username) => {
-      if (username) {
-        session.username = username;
-        done(null, username);
-      } else done(null, false, { info: "njsjjsjsjs" });
-    });
-  })
-);
 
-router.post(
+
+/*router.post(
   "/signin",
   passport.authenticate("local", {
     failureRedirect: "signin",
@@ -56,7 +40,7 @@ router.post(
     if (session.users.rol == 1) res.redirect("/admin");
     else res.redirect("/admin");
   }
-);
+);*/
 
 
 //logout
