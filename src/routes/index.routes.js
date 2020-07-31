@@ -18,8 +18,10 @@ function esAdmin(req, res, next) {
   if (session.usuario.tipo == 2) next();
   else res.redirect("/");
 }
-
 router.get("/",(req, res) => {
+  res.render("index");
+});
+router.get("/admin",(req, res) => {
   res.render("admin/index");
 });
 

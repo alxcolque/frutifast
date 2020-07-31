@@ -6,7 +6,7 @@ module.exports = {
       connection.query(
         "INSERT INTO users(name, user_name, password, rol) VALUES (?,?,?,?)",
         [name, user, pass, rol]
-      ),
+      ), 
         (err) => {
           if (err) reject(err);
           else resolve();
