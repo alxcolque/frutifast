@@ -5,6 +5,7 @@ const flash = require("connect-flash");
 const session = require("express-session");
 const passport = require("passport");
 const bodyParser = require("body-parser");
+var cookieParser = require("cookie-parser");
 
 // Importing routes
 
@@ -24,11 +25,12 @@ app.set(express.static(path.join(__dirname,'public')));
 
 //Midlewares
 //app.use(morgan('dev'));
+app.use(cookieParser());
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.set(bodyParser.json());
+/*app.use(bodyParser.urlencoded({ extended: false }));
+app.set(bodyParser.json());*/
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -36,15 +38,16 @@ app.use(passport.session());
 app.use(
   session({
     secret: "secret",
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
   })
 );
 app.use(flash());
 
 //Global Variables
 app.use((req,res,next)=>{
-	res.locals.success_msg = req.flash("success_msg");
+  res.locals.success_msg = req.flash("success_msg");
+  res.locals.errors_msg = req.flash("errors_msg");
 	next();
 })
 
