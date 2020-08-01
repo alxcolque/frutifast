@@ -8,6 +8,7 @@ const bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
 
 // Importing routes
+require('./config/passport')(passport);
 
 //initialization
 const app = express();
@@ -34,15 +35,15 @@ app.set(bodyParser.json());*/
 
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(flash());
 app.use(
   session({
-    secret: "secret",
+    secret: "justasecret",
     resave: true,
     saveUninitialized: true,
   })
 );
-app.use(flash());
+
 
 //Global Variables
 app.use((req,res,next)=>{
@@ -53,14 +54,15 @@ app.use((req,res,next)=>{
 
 //Routes
 
-app.use(require('./routes/index.routes'));
+/*app.use(require('./routes/index.routes'));
 
 app.use(require("./routes/auth.routes"));
 
 app.use('/items',require('./routes/items.routes'));
-app.use("/tipos", require("./routes/tipos.routes"));
+app.use("/tipos", require("./routes/tipos.routes"));*/
 
 // Static Files
 app.use(express.static(path.join(__dirname,'public')));
+require('./routes/auth.routes')(app,passport);
 
 module.exports = app;

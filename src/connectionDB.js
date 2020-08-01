@@ -1,6 +1,6 @@
 const mysql = require('mysql');
 const {promisify} = require('util');
-const {database} = require('./helpers/keys');
+const {database} = require('./config/database');
 
 const pool = mysql.createPool(database);
 
@@ -12,10 +12,8 @@ pool.getConnection((err, connection) => {
 		else if(err.code === 'ER_CON_COUNT_ERROR'){
 			console.error('La base de datos ya tiene demasiadas conexiones');
 		}
-		else if(err.code === 'ECONNREFUSED'){
+		if(err.code === 'ECONNREFUSED'){
 			console.error('La conexión fue rechazada');
-		}else{
-			console.error('Ha ocurrido un error más grave que tu');
 		}
 	}
 	if(connection) connection.release()
