@@ -1,23 +1,26 @@
-const { Router } = require("express");
-const router = Router();
-const db = require("../connectionDB");
-const pool = require("../connectionDB");
+const express = require("express");
+const router = express.Router();
 
-router.get("/add", (req, res) => {
-  res.render("tipos/add");
-});
+const { isLoggedIn } = require("../config/auth");
 
-router.post('/add', async(req,res)=>{
-    const {name} = req.body;
-    const newTipo = {
-        name
-    };
-    await pool.query('INSERT INTO types SET ?',[newTipo]);
-    res.send('Recibido');
-});
-router.get('/',async(req,res)=>{
-    const tipos = await pool.query('SELECT * FROM types');
-    res.render('tipos/list',{tipos: tipos});
-});
+const {
+  renderAddLink,
+  addLink,
+  renderLinks,
+  deleteLink,
+  editLink,
+  renderEditLink,
+} = require("../controllers/tipo.controller");
+
+// Authorization
+router.use(isLoggedIn);
+
+// Routes
+router.get("/add", renderAddLink);
+router.post("/add", addLink);
+router.get("/", isLoggedIn, renderLinks);
+router.get("/delete/:id", deleteLink);
+router.get("/edit/:id", renderEditLink);
+router.post("/edit/:id", editLink);
 
 module.exports = router;

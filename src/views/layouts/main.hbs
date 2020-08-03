@@ -1,0 +1,34 @@
+{{#if user}}
+
+{{#ifCond user.rol "1"}}
+    {{>head}}
+    {{>navigation}}
+    <main>
+        {{{ body }}}
+    </main>
+    {{>foot}}
+{{else}}
+    {{>admin_head}}
+    <!-- Left Panel -->
+    {{>admin_navigation}}
+    <!-- /#left-panel -->
+    <!-- Right Panel -->
+    <div id="right-panel" class="right-panel">
+        <!-- Header-->
+        {{>admin_paneltop}}
+        <!-- /#header -->
+        {{{ body }}}
+        {{>admin_foot}}
+{{/ifCond}}
+
+
+{{else}}
+    {{>head}}
+    {{>navigation}}
+    <main>
+        {{{ body }}}
+    </main>
+    {{>foot}}
+
+{{/if}}
+

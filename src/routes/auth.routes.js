@@ -1,56 +1,42 @@
-module.exports = function (app, passport) {
-  app.get("/", function (req, res) {
-    res.render("index.ejs");
-  });
+const express = require("express");
+const passport = require("passport");
+const router = express.Router();
 
-  app.get("/signin", function (req, res) {
-    res.render("signin.ejs");
-  });
+const {
+  renderSignUp,
+  signUp,
+  renderSignIn,
+  signIn,
+  logout,
+} = require("../controllers/auth.controller");
 
-  app.post(
-    "/signin",
-    passport.authenticate("local-login", {
-      successRedirect: "/admin",
-      failureRedirect: "signin",
-      failureFlash: true,
-    }),
-    function (req, res) {
-      if (req.body.remember) {
-        req.session.cookie.maxAge = 1000 * 60 * 3;
-      } else {
-        req.session.cookie.expires = false;
-      }
-      res.redirect("/");
+// SIGNUP
+router.get("/signup", renderSignUp);
+router.post("/signup", signUp);
+
+// SINGIN
+router.get("/signin", renderSignIn);
+
+router.post("/signin",
+passport.authenticate("local.signin"),
+function (req, res, user) {
+  if (req.user.rol > 0) {
+    console.log("rol" + req.user.rol);
+    if (req.user.rol == 4) {
+      res.redirect("/admin");
+    } else if (req.user.rol == 3) {
+      res.redirect("/gerente");
+    } else if (req.user.rol == 2) {
+      res.redirect("/recepcion");
+    } else {
+      res.redirect("/cliente");
     }
-  );
+  } else {
+    res.redirect("/signin");
+  }
+});
 
-  app.get("/signup", function (req, res) {
-    res.render("signup.ejs");
-  });
 
-  app.post(
-    "/signup",
-    passport.authenticate("local-signup", {
-      successRedirect: "/signin",
-      failureRedirect: "/signup",
-      failureFlash: true,
-    })
-  );
+router.get("/logout", logout);
 
-  app.get("/admin", isLoggedIn, function (req, res) {
-    res.render("/admin/index.ejs", {
-      user: req.user,
-    });
-  });
-
-  app.get("/logout", function (req, res) {
-    req.logout();
-    res.redirect("/");
-  });
-};
-
-function isLoggedIn(req, res, next) {
-  if (req.isAuthenticated()) return next();
-
-  res.redirect("/");
-}
+module.exports = router;

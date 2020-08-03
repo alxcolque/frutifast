@@ -1,130 +1,92 @@
-var LocalStrategy = require("passport-local").Strategy;
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
 
-var mysql = require("mysql");
-var bcrypt = require("bcrypt");
-var dbconfig = require("./database");
-var connection = mysql.createConnection(dbconfig.connection);
+const pool = require("../connectionDB");
+const comprob = require("./encod");
+const { Exception } = require("handlebars");
 
-connection.query("USE " + dbconfig.database);
-
-module.exports = function (passport) {
-  passport.serializeUser(function (user, done) {
-    done(null, user.id);
-  });
-
-  passport.deserializeUser(function (id, done) {
-    connection.query("SELECT * FROM users WHERE user_id = ? ", [id], function (
-      err,
-      rows
-    ) {
-      done(err, rows[0]);
-    });
-  });
-
-  passport.use(
-    "local-signup",
-    new LocalStrategy(
-      {
-        usernameField: "username",
-        passwordField: "password",
-        passReqToCallback: true,
-      },
-      function (req, username, password, done) {
-        connection.query(
-          "SELECT * FROM users WHERE user_name = ? ",
-          [username],
-          function (err, rows) {
-            if (err) 
-              return done(err);
-            if (rows.length) {
-              return done(
-                null,
-                false,
-                req.flash("errors_msg", "El nombre de usuario ya existe")
-              );
-            } else {
-              const { name, password, confirm_pass } = req.body;
-              if(password.length<6){
-                return done(
-                  null,
-                  false,
-                  req.flash("errors_msg", "La contraseña debe tener mínimo 6 digitos.")
-                );
-              }
-              if (password != confirm_pass){
-                return done(
-                  null,
-                  false,
-                  req.flash("errors_msg", "Las claves deben coincidir..")
-                );
-              }else{
-                var newUserMysql = {
-                  name: name,
-                  username: username,
-                  password: bcrypt.hashSync(password, bcrypt.genSaltSync(10)),
-                  rol: 1,
-                };
-
-                var insertQuery =
-                  "INSERT INTO users (name, user_name, password, rol) values (?, ?, ?, ?)";
-
-                connection.query(
-                  insertQuery,
-                  [
-                    newUserMysql.name,
-                    newUserMysql.username,
-                    newUserMysql.password,
-                    newUserMysql.rol,
-                  ],
-                  function (err, rows) {
-                    newUserMysql.id = rows.insertId;
-
-                    return done(null, newUserMysql);
-                  }
-                );
-              }
-                
-            }
-          }
+passport.use("local.signin",new LocalStrategy({
+      usernameField: "user_name",
+      passwordField: "password",
+      passReqToCallback: true,
+    },
+    async (req, user_name, password, done) => {
+      const rows = await pool.query("SELECT * FROM users WHERE user_name = ?", [
+        user_name,
+      ]);
+      if (rows.length > 0) {
+        const user = rows[0];
+        /*const validPassword = await comprob.matchPassword(password,user.password);
+        console.log(await comprob.encryptPassword(password), user.password);
+        if (validPassword) 
+        */
+        if (password === user.password) {
+          return done(null, user, req.flash("success", "Welcome " + user.user_name));
+        } else {
+          return done(null, false, req.flash("message", "Incorrect Password"));
+        }
+      } else {
+        return done(
+          null,
+          false,
+          req.flash("message", "The Username does not exists.")
         );
       }
-    )
-  );
+    }
+  )
+);
 
-  passport.use(
-    "local-login",
-    new LocalStrategy(
-      {
-        usernameField: "username",
-        passwordField: "password",
-        passReqToCallback: true,
-      },
-      function (req, username, password, done) {
-        connection.query(
-          "SELECT * FROM users WHERE user_name = ? ",
-          [username],
-          function (err, rows) {
-            if (err) return done(err);
-            if (!rows.length) {
-              return done(
-                null,
-                false,
-                req.flash("errors_msg", "No User Found")
-              );
-            }
-            if (bcrypt.hashSync(password, bcrypt.genSaltSync(10)) !== rows[0].password){
-              return done(
-                null,
-                false,
-                req.flash("errors_msg", "Wrong Password"),
-                console.log("Hola: " + rows[0].password)
-              );
-            }else {
-              return done(null, rows[0]);
-            }
-          }
-        );
+passport.use("local.signup",new LocalStrategy({
+      usernameField: "user_name",
+      passwordField: "password",
+      passReqToCallback: true,
+    },
+    async (req, user_name, password, done) => {
+      var rol = 1;
+      var cant = await pool.query("SELECT count(user_id) as cont FROM users");
+      if(cant[0].cont < 1){
+        rol = 4;
       }
-    )
-  );
-};
+      const { name, confirmpass } = req.body;
+      
+      const rows = await pool.query("SELECT user_name FROM users WHERE user_name = ?", [
+        user_name,
+      ]);
+      if (rows.length > 0) {
+        return done(null, false, req.flash("message", "Ya existe el usuario"));
+      } 
+      else if (password != confirmpass) {
+        return done(null, false, req.flash("message", "Las constraseñas no coinciden"));
+      }else{
+          let newUser = {
+          name,
+          user_name,
+          password,
+          rol,
+        };
+        //newUser.password = await comprob.encryptPassword(password);
+        // Saving in the Database
+        const result = await pool.query("INSERT INTO users SET ? ", newUser);
+        newUser.user_id = result.insertId;
+        return done(null, newUser);
+      }
+    }
+  )
+);
+
+passport.serializeUser((user, done) => {
+  try {
+    done(null, user.user_id);
+  } catch (err) {
+    done(null, true);
+  }
+});
+
+passport.deserializeUser(async (user_id, done) => {
+  try {
+    const rows = await pool.query("SELECT * FROM users WHERE user_id = ?", [user_id]);
+    done(null, rows[0]);
+  } catch (err) {
+    done(null, true);
+  }
+});

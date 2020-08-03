@@ -1,5 +1,6 @@
-const app = require('./server');
-require("./connectionDB");
-app.listen(app.get('port'),()=>{
-	console.log('Server on port', app.get('port'))
-})
+const dotenv = require("dotenv");
+dotenv.config();
+const app = require("./server");
+
+app.listen(app.get("port"));
+console.log("Server is in port", app.get("port"));
