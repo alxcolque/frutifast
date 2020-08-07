@@ -21,7 +21,7 @@ router.post("/signin",
 passport.authenticate("local.signin"),
 function (req, res, user) {
   if (req.user.rol > 0) {
-    console.log("rol" + req.user.rol);
+    console.log("rol " + req.user.rol);
     if (req.user.rol == 4) {
       res.redirect("/admin");
     } else if (req.user.rol == 3) {
@@ -32,7 +32,7 @@ function (req, res, user) {
       res.redirect("/cliente");
     }
   } else {
-    res.redirect("/signin");
+    res.redirect("/");
   }
 });
 

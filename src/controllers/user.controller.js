@@ -6,11 +6,11 @@ userCtrl.renderUserAdm = (req, res, next) => {
 };
 userCtrl.renderUserGer = (req, res, next) => {
   inicio = "/gerente";
-  res.render("users/ger/");
+  res.render("users/adm/");
 };
 userCtrl.renderUseRes = (req, res, next) => {
   inicio = "/recepcion";
-  res.render("users/res/");
+  res.render("users/adm/");
 };
 userCtrl.renderUserCli = (req, res, next) => {
   inicio = "/cliente";
