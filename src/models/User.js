@@ -15,7 +15,7 @@ module.exports = {
       connection.query(
         "INSERT INTO users(name, user_name, password, rol) VALUES (?,?,?,?)",
         [name, user, pass, rol]
-      ), 
+      ),
         (err) => {
           if (err) reject(err);
           else resolve();
@@ -33,6 +33,18 @@ module.exports = {
           else resolve(false);
         }
       );
+    });
+  },
+  update(id, name, pic) {
+    return new Promise((resolve, reject) => {
+      connection.query(
+        "UPDATE users SET  name=?,pic=? WHERE user_id = "+id,
+        [name, pic]
+      ),
+        (err) => {
+          if (err) reject(err);
+          else resolve();
+        };
     });
   },
 };

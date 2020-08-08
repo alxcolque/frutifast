@@ -16,5 +16,13 @@ userCtrl.renderUserCli = (req, res, next) => {
   inicio = "/cliente";
   res.render("users/cli/");
 };
+userCtrl.renderProfile = (req, res, next) => {
+  res.render("users/profile");
+};
+userCtrl.renderProfileEdit = (req, res, next) => {
+  res.render("users/edit");
+};
+
+
 
 module.exports = userCtrl;

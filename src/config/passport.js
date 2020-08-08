@@ -58,11 +58,13 @@ passport.use("local.signup",new LocalStrategy({
       else if (password != confirmpass) {
         return done(null, false, req.flash("message", "Las constraseñas no coinciden"));
       }else{
+          let pic = "user.png";
           let newUser = {
           name,
           user_name,
           password,
           rol,
+          pic,
         };
         //newUser.password = await comprob.encryptPassword(password);
         // Saving in the Database
@@ -84,8 +86,9 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (user_id, done) => {
   try {
-    const rows = await pool.query("SELECT * FROM users WHERE user_id = ?", [user_id]);
-    done(null, rows[0]);//rows[0]);
+    const rows = await pool.query("SELECT user_id,name,user_name,password,rol,pic,(CASE rol WHEN 1 THEN 'CLIENTE' WHEN 2 THEN 'RECEPCIONISTA' WHEN 3 THEN 'GERENTE' ELSE 'ADMINISTRADOR' END) as role FROM users WHERE user_id = ?", [user_id]);
+    //done(null, true);
+    done(null, rows[0]);
   } catch (err) {
     done(null, true);
   }

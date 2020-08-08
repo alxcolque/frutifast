@@ -5,11 +5,17 @@
             <div class="col-md-4 mx-auto">
                 <div class="card text-center">
                     <div class="card-body">
-                        <h3>Bienvenido {{user.name}}</h3>
-                        <h4>{{user.username}}</h4>
-                        <a href="/links" class="btn btn-primary m-4">
-                            Save your Links
-                        </a>
+                        <div class="mx-auto d-block">
+                            <img class="rounded-circle mx-auto d-block" src="img/upload/{{user.pic}}" width="200" height="200" alt="profile">
+                            <div class="location text-sm-center">ID {{user.user_id}}</div>
+                            <h5 class="text-sm-center mt-2 mb-1">{{user.name}}</h5>
+                            <div class="location text-sm-center">Nombe de Usuario: {{user.user_name}}</div>
+                            <div class="location text-sm-center"><i class="fa fa-map-marker"></i> Bolivia, Sud América</div>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="card-footer">
+                        <strong class="card-title mb-3">{{user.role}}</strong>
                     </div>
                 </div>
             </div>
@@ -18,7 +24,7 @@
     </div>
 </section>
 <section class="p-5">
-    <h4>All notes</h4>
+    <h4>Todos los odenes</h4>
 
     <div class="row">
 
