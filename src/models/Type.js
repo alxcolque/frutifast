@@ -1,18 +1,21 @@
 const pool = require("../connectionDB");
 module.exports = {
-  listado() {
+  getAll() {
     return new Promise((resolve, reject) => {
-      pool.query("select * from ", (err, peliculas) => {
+      pool.query("SELECT * FROM types ORDER BY type_id", (err, types) => {
         if (err) reject(err);
-        else resolve(peliculas);
+        else resolve(types);
       });
     });
   },
-  agregar(titulo, portada, video, sinopsis) {
+
+  
+  add(name) {
+      const newType = {
+        name,
+      };
     return new Promise((resolve, reject) => {
-      pool.query(
-        "insert into peliculas (titulo, portada, video, sinopsis) values ( ?,? ,?, ?) ",
-        [titulo, portada, video, sinopsis],
+      pool.query("INSERT INTO types set ?", [newType],
         (err) => {
           if (err) reject(err);
           else resolve();
@@ -20,36 +23,28 @@ module.exports = {
       );
     });
   },
-  borrar(id) {
+  delete(id) {
     return new Promise((resolve, reject) => {
-      pool.query("delete from peliculas where id= ?", [id], (err) => {
+      pool.query("DELETE FROM types WHERE type_id = ?", [id], (err) => {
         if (err) reject(err);
         else resolve();
       });
     });
   },
-  modificar(id, titulo, portada, video, sinopsis) {
+  update(type_id, name) {
+    const newType = {
+      type_id,
+      name,
+    };
     return new Promise((resolve, reject) => {
       pool.query(
-        "update peliculas (titulo, portada, video, sinopsis) set ( ?,? ,?, ?) where id= ? ",
-        [titulo, portada, video, sinopsis, id],
+        "UPDATE types set ? WHERE type_id = ?",
+        [newType, type_id],
         (err) => {
           if (err) reject(err);
           else resolve();
         }
       );
     });
-  },
-  getpelicula(id) {
-    return new Promise((resolve, reject) => {
-      pool.query(
-        "select * from peliculas where id=?",
-        [id],
-        (err, pelicula) => {
-          if (err) reject(err);
-          else resolve(pelicula);
-        }
-      );
-    });
-  },
+  }
 };

@@ -4,7 +4,7 @@
   });
 });*/
 
-function setTypes(a,id,name) {
+function setTypes() {
   $("#formAddType")[0].reset(); // reset form on modals
   $("#typeModalAdd").modal("show");
   $(".modal-title").text('Nuevo Tipo');
@@ -15,11 +15,29 @@ function setTypes(a,id,name) {
       });
     });*/
 }
-
 function updateTypes(id, name) {
   $("#formAddType")[0].reset();
   $("#typeModalEdit").modal("show");
   $(".modal-title").text("Modificar Tipo");
   $('[name="name"]').val(name);
   $('[name="type_id"]').val(id);
+}
+function setItems(){
+  $("#formAddItems")[0].reset();
+  $("#itemModalAdd").modal("show");
+  $(".modal-title").text("Nuevo Producto");
+}
+
+function selectType(type_id){
+  $('[name="type_id"]').val(type_id);
+}
+
+function updateItem(item_id, type_id, name, price) {
+  $("#formEditItem")[0].reset();
+  $("#itemModalAdd").modal("show");
+  $(".modal-title").text("Modificar Item");
+  $('[name="item_id"]').val(item_id);
+  $('[name="type_id"]').val(type_id);
+  $('[name="name"]').val(name);
+  $('[name="price"]').val(price);
 }

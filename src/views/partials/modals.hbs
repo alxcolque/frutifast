@@ -17,13 +17,32 @@
         </div>
     </div>
 </div>
+<!-- Eliminar Items Modal-->
+<div class="modal fade" id="deleteItemModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Eliminar?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" type="button" data-dismiss="modal">Cancelar</button>
+                <a class="btn btn-primary" href="items/delete/">Eliminar</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Types Modal  Insert-->
-<div class="modal fade" id="typeModalAdd" role="dialog" >
+<div class="modal fade" id="typeModalAdd" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                
+
                 <h3 class="modal-title"></h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span></button>
@@ -38,7 +57,8 @@
                             <div class="form-group">
                                 <label class="control-label col-md-12">Defina un tipo</label>
                                 <div class="col-md-12">
-                                    <input name="name" placeholder="Escriba Tipo" class="form-control" type="text" required>
+                                    <input name="name" placeholder="Escriba Tipo" class="form-control" type="text"
+                                        required>
                                 </div>
                             </div>
                         </div>
@@ -77,7 +97,7 @@
                                 <div class="col-md-12">
                                     <input name="name" placeholder="Escriba Tipo" class="form-control" type="text"
                                         required>
-                                    <input name="type_id" required >
+                                    <input name="type_id" required hidden>
                                 </div>
                             </div>
                         </div>
@@ -94,3 +114,150 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
+<!-- End type Modal  Update-->
+<!-- Item Modal  create-->
+<div class="modal fade" id="itemModalAdd" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="items/add" method="POST" enctype="multipart/form-data" id="formEditItem" class="form-horizontal">
+                <div class="modal-header">
+
+                    <h3 class="modal-title"></h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+
+                </div>
+                <div class="modal-body form">
+
+                    <div class="form-body">
+
+                        <!-- formula rio de cuerpo -->
+                        <div class="form-body">
+                            <div class="form-group">
+                                <input name="item_id" required >
+                                <label class="control-label col-md-12">Nombre Producto</label>
+                                <div class="col-md-12">
+                                    <input name="name" placeholder="Escriba Producto" class="form-control" type="text"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-12">Seleccione Tipo</label>
+                                <div class="col-md-12">
+                                    <select class="form-control input-lg" id="sel_parti"
+                                        onchange="selectType(this.value)">
+                                        <option value="">-Selecione Tipo-</option>
+                                        {{#if types}}
+
+                                        {{#each types}}
+                                        <option value="{{this.type_id}}">{{this.name}}</option>
+                                        {{/each}}
+                                        {{else}}
+
+                                        {{/if}}
+
+
+                                    </select>
+                                    <input name="type_id" required >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-12">Precio</label>
+                                <div class="col-md-12">
+                                    <input type="number" name="price" min="0,1" max="10000">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-12">Suba una imagen</label>
+                                <div class="col-md-12">
+                                    <input type="file" class="form-control" name="picture">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Guardar
+                        <span class="fa fa-save" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel
+                    </button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<!--End Item Modal  Create-->
+<!--Item Modal  Update-->
+<div class="modal fade" id="itemModalEdit" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="items/edit" method="POST" enctype="multipart/form-data" id="formEditItems" class="form-horizontal">
+                <div class="modal-header">
+    
+                    <h3 class="modal-title"></h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+    
+                </div>
+                <div class="modal-body form">
+    
+                    <div class="form-body">
+    
+                        <!-- formula rio de cuerpo -->
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="control-label col-md-12">Nombre Producto</label>
+                                <div class="col-md-12">
+                                    <input name="name" placeholder="Escriba Producto" class="form-control" type="text"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-12">Seleccione Tipo</label>
+                                <div class="col-md-12">
+                                    <select class="form-control input-lg" id="sel_parti" onchange="selectType(this.value)">
+                                        <option value="">-Selecione Tipo-</option>
+                                        {{#if types}}
+    
+                                        {{#each types}}
+                                        <option value="{{this.type_id}}">{{this.name}}</option>
+                                        {{/each}}
+                                        {{else}}
+    
+                                        {{/if}}
+    
+    
+                                    </select>
+                                    <input name="type_id" required hidden>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-12">Precio</label>
+                                <div class="col-md-12">
+                                    <input type="number" name="price" min="0,1" max="10000">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-12">Suba una imagen</label>
+                                <div class="col-md-12">
+                                    <input type="file" class="form-control" name="picture">
+                                </div>
+                            </div>
+    
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary">Guardar
+                        <span class="fa fa-save" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel
+                    </button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<!--End Item Modal  Update-->
