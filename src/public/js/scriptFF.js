@@ -22,7 +22,7 @@ function updateTypes(id, name) {
   $('[name="name"]').val(name);
   $('[name="type_id"]').val(id);
 }
-function setItems(){
+function setItems() {
   $("#formAddItems")[0].reset();
   $("#itemModalAdd").modal("show");
   $(".modal-title").text("Nuevo Producto");
@@ -34,7 +34,7 @@ function selectType(type_id){
 
 function updateItem(item_id, type_id, name, price) {
   $("#formEditItem")[0].reset();
-  $("#itemModalAdd").modal("show");
+  $("#itemModalEdit").modal("show");
   $(".modal-title").text("Modificar Item");
   $('[name="item_id"]').val(item_id);
   $('[name="type_id"]').val(type_id);

@@ -45,11 +45,10 @@ router.get("/delete/:id", isLoggedIn, deleteItem);
 router.post("/edit", isLoggedIn, cpUpload, (req,res)=>{
     let { item_id, type_id, name, price } = req.body;
     let picture = req.files["picture"][0];
-    /*Item.update(item_id, type_id, name, price, picture.filename).then(
+    Item.update(item_id, type_id, name, price, picture.filename).then(
       req.flash("success", name + " Se ha actuaizado con éxito"),
       res.redirect("/items")
-    );*/
-    res.send(item_id, type_id, name, price, picture.filename);
+    );
 });
 
 

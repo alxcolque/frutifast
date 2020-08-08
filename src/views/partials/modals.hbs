@@ -119,7 +119,7 @@
 <div class="modal fade" id="itemModalAdd" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="items/add" method="POST" enctype="multipart/form-data" id="formEditItem" class="form-horizontal">
+            <form action="items/add" method="POST" enctype="multipart/form-data" id="formAddItems" class="form-horizontal">
                 <div class="modal-header">
 
                     <h3 class="modal-title"></h3>
@@ -134,7 +134,7 @@
                         <!-- formula rio de cuerpo -->
                         <div class="form-body">
                             <div class="form-group">
-                                <input name="item_id" required >
+                                
                                 <label class="control-label col-md-12">Nombre Producto</label>
                                 <div class="col-md-12">
                                     <input name="name" placeholder="Escriba Producto" class="form-control" type="text"
@@ -158,7 +158,7 @@
 
 
                                     </select>
-                                    <input name="type_id" required >
+                                    <input name="type_id" required hidden>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -193,7 +193,7 @@
 <div class="modal fade" id="itemModalEdit" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="items/edit" method="POST" enctype="multipart/form-data" id="formEditItems" class="form-horizontal">
+            <form action="items/edit" id="formEditItem"  method="POST" enctype="multipart/form-data"class="form-horizontal">
                 <div class="modal-header">
     
                     <h3 class="modal-title"></h3>
@@ -208,6 +208,7 @@
                         <!-- formula rio de cuerpo -->
                         <div class="form-body">
                             <div class="form-group">
+                                <input name="item_id" required>
                                 <label class="control-label col-md-12">Nombre Producto</label>
                                 <div class="col-md-12">
                                     <input name="name" placeholder="Escriba Producto" class="form-control" type="text"
@@ -230,7 +231,7 @@
     
     
                                     </select>
-                                    <input name="type_id" required hidden>
+                                    <input name="type_id" required >
                                 </div>
                             </div>
                             <div class="form-group">
