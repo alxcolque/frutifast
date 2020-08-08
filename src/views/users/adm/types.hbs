@@ -4,7 +4,7 @@
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Dashboard</h1>
+                        <h1>Tipos</h1>
                     </div>
                 </div>
             </div>
@@ -22,78 +22,59 @@
         </div>
     </div>
 </div>
+{{>message}}
+<div class="col-md-12">
+    <button title="Añadir Nuevo" class="btn btn-success btn-sm" onclick="setTypes()">
+        <i class="fa fa-plus"></i>
+        Nuevo Tipo
+    </button>
+    <div class="card">
+        <div class="card-header">
+            <strong class="card-title">Tabla de Tipos</strong>
 
+        </div>
+        <div class="card-body">
+            <div id="bootstrap-data-table_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
 
-<div class="content">
-    <div class="animated fadeIn">
-        <div class="row">
-            <div class="col-md-12">
-                <button title="Añadir Nuevo" class="btn btn-success btn-sm" onclick="setTypes('1')" data-toggle="modal"
-                    data-target="#typeModal">
-                    <i class="fa fa-plus"></i>
-                    Nuevo Tipo
-                </button>
-                <div class="card">
-                    <div class="card-header">
-                        <strong class="card-title">Tabla de Tipos</strong>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Tipo</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#if types}}
 
-                    </div>
-                    <div class="card-body">
-                        <div id="bootstrap-data-table_wrapper"
-                            class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
-
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <table id="bootstrap-data-table"
-                                        class="table table-striped table-bordered dataTable no-footer" role="grid"
-                                        aria-describedby="bootstrap-data-table_info">
-                                        <thead>
-                                            <tr role="row">
-
-                                                <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table"
-                                                    rowspan="1" colspan="1" style="width: 290px;"
-                                                    aria-label="Position: activate to sort column ascending">Nº
-                                                </th>
-                                                <th class="sorting_asc" tabindex="0"
-                                                    aria-controls="bootstrap-data-table" rowspan="1" colspan="1"
-                                                    style="width: 178px;" aria-sort="ascending"
-                                                    aria-label="Name: activate to sort column descending">Tipos</th>
-                                                <th>
-                                                    Acciones
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {{#if types}}
-
-                                            {{#each types}}
-                                            <tr role="row" class="odd">
-                                                <td>{{this.type_id}}</td>
-                                                <td class="sorting_1">{{this.name}}</td>
-                                                <td>
-                                                    <center>
-                                                        <button class="btn btn-warning" title="Editar Equipo"
-                                                            onclick="actEqui(1)"><i class="fa fa-edit"></i></button>
-                                                        <button class="btn btn-danger" title="Eliminar Equipo"
-                                                            onclick="delEqui(1)"><i class="fa fa-trash"></i></button>
-                                                    </center>
-                                                </td>
-                                            </tr>
-                                            {{/each}}
-                                            {{else}}
-
+                                {{#each types}}
+                                <tr role="row" class="odd">
+                                    <td>{{this.type_id}}</td>
+                                    <td class="sorting_1">{{this.name}}</td>
+                                    <td>
+                                        <center>
+                                            <button class="btn btn-warning" title="Editar Tipo"
+                                                onclick="updateTypes('{{this.type_id}}','{{this.name}}')"><i
+                                                    class="fa fa-edit"></i></button>
                                             
-                                            {{/if}}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                                            <a href="types/delete/{{this.type_id}}" class="btn btn-danger"><i
+                                                    class="fas fa-trash"></i></a>
+
+                                        </center>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                                {{else}}
+
+                                {{/if}}
+                            </tbody>
+                        </table>
+
                     </div>
                 </div>
             </div>
-
-
         </div>
-    </div><!-- .animated -->
+    </div>
 </div>

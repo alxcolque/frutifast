@@ -5,9 +5,7 @@ const { isLoggedIn } = require("../config/auth");
 
 const {
   renderTypes,
-  renderAddType,
   addType,
-  renderEditType,
   editType,
   deleteType,
 } = require("../controllers/type.controller");
@@ -16,11 +14,9 @@ const {
 router.use(isLoggedIn);
 
 // Routes amdin
-router.get("/types/add", renderAddType);
-router.post("/types/add", addType);
-router.get("/types", isLoggedIn, renderTypes);
-router.get("/types/delete/:id", deleteType);
-router.get("/types/edit/:id", renderEditType);
-router.post("/types/edit/:id", editType);
+router.post("/add", addType);
+router.get("/", isLoggedIn, renderTypes);
+router.get("/delete/:id", deleteType);
+router.post("/edit", editType);
 
 module.exports = router;

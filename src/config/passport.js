@@ -21,15 +21,15 @@ passport.use("local.signin",new LocalStrategy({
         if (validPassword) 
         */
         if (password === user.password) {
-          return done(null, user, req.flash("success", "Welcome " + user.user_name));
+          return done(null, user, req.flash("success", "Bienvenido " + user.name));
         } else {
-          return done(null, false, req.flash("message", "Incorrect Password"));
+          return done(null, false, req.flash("message", "Contraseña incorrecta"));
         }
       } else {
         return done(
           null,
           false,
-          req.flash("message", "The Username does not exists.")
+          req.flash("message", "Nombre de usuario no existe...")
         );
       }
     }

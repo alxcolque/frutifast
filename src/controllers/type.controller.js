@@ -3,10 +3,6 @@ const typesCtrl = {};
 const Type = require("../models/Type");
 const pool = require("../connectionDB");
 
-typesCtrl.renderAddType = (req, res) => {
-  res.render("types/add");
-};
-
 typesCtrl.addType = async (req, res) => {
   const { name} = req.body;
   const newType = {
@@ -14,7 +10,7 @@ typesCtrl.addType = async (req, res) => {
   };
   await pool.query("INSERT INTO types set ?", [newType]);
   req.flash("success", "Se ha registado con éxito");
-  res.redirect("admin/types");
+  res.redirect("/types");
 };
 
 typesCtrl.renderTypes = async (req, res) => {
@@ -26,29 +22,21 @@ typesCtrl.renderTypes = async (req, res) => {
 
 typesCtrl.deleteType = async (req, res) => {
   const { id } = req.params;
-  await pool.query("DELETE FROM links WHERE ID = ?", [id]);
-  req.flash("success", "Link Removed Successfully");
-  res.redirect("/links");
+  await pool.query("DELETE FROM types WHERE type_id = ?", [id]);
+  req.flash("success", "Tipo removido Exitosamente");
+  res.redirect("/types");
 };
 
-typesCtrl.renderEditType = async (req, res) => {
-  const { id } = req.params;
-  const links = await pool.query("SELECT * FROM links WHERE id = ?", [id]);
-  console.log(links);
-  res.render("links/edit", { link: links[0] });
-};
 
 typesCtrl.editType = async (req, res) => {
-  const { id } = req.params;
-  const { title, description, url } = req.body;
+  const {type_id, name} = req.body;
   const newType = {
-    title,
-    description,
-    url,
+    type_id,
+    name
   };
-  await pool.query("UPDATE links set ? WHERE id = ?", [newType, id]);
-  req.flash("success", "Link Updated Successfully");
-  res.redirect("/links");
+  await pool.query("UPDATE types set ? WHERE type_id = ?", [newType, type_id]);
+  req.flash("success", "Type Updated Successfully");
+  res.redirect("/types");
 };
 
 module.exports = typesCtrl;
