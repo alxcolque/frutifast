@@ -41,3 +41,18 @@ function updateItem(item_id, type_id, name, price) {
   $('[name="name"]').val(name);
   $('[name="price"]').val(price);
 }
+
+
+function setWarehouse() {
+  $("#formAddWarehouse")[0].reset(); // reset form on modals
+  $("#modalAddWarehouse").modal("show");
+  $(".modal-title").text("Nuevo Almacén");
+}
+function updateWarehouse(id, name, address) {
+  $("#formEditWarehouse")[0].reset();
+  $("#modalEditWarehouse").modal("show");
+  $(".modal-title").text("Modificar Almacén");
+  $('[name="warehouse_id"]').val(id);
+  $('[name="name"]').val(name);
+  $('[name="address"]').val(address);
+}

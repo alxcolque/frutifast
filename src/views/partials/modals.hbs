@@ -119,7 +119,8 @@
 <div class="modal fade" id="itemModalAdd" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="items/add" method="POST" enctype="multipart/form-data" id="formAddItems" class="form-horizontal">
+            <form action="items/add" method="POST" enctype="multipart/form-data" id="formAddItems"
+                class="form-horizontal">
                 <div class="modal-header">
 
                     <h3 class="modal-title"></h3>
@@ -134,7 +135,7 @@
                         <!-- formula rio de cuerpo -->
                         <div class="form-body">
                             <div class="form-group">
-                                
+
                                 <label class="control-label col-md-12">Nombre Producto</label>
                                 <div class="col-md-12">
                                     <input name="name" placeholder="Escriba Producto" class="form-control" type="text"
@@ -193,18 +194,19 @@
 <div class="modal fade" id="itemModalEdit" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="items/edit" id="formEditItem"  method="POST" enctype="multipart/form-data"class="form-horizontal">
+            <form action="items/edit" id="formEditItem" method="POST" enctype="multipart/form-data"
+                class="form-horizontal">
                 <div class="modal-header">
-    
+
                     <h3 class="modal-title"></h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span></button>
-    
+
                 </div>
                 <div class="modal-body form">
-    
+
                     <div class="form-body">
-    
+
                         <!-- formula rio de cuerpo -->
                         <div class="form-body">
                             <div class="form-group">
@@ -218,20 +220,21 @@
                             <div class="form-group">
                                 <label class="control-label col-md-12">Seleccione Tipo</label>
                                 <div class="col-md-12">
-                                    <select class="form-control input-lg" id="sel_parti" onchange="selectType(this.value)">
+                                    <select class="form-control input-lg" id="sel_parti"
+                                        onchange="selectType(this.value)">
                                         <option value="">-Selecione Tipo-</option>
                                         {{#if types}}
-    
+
                                         {{#each types}}
                                         <option value="{{this.type_id}}">{{this.name}}</option>
                                         {{/each}}
                                         {{else}}
-    
+
                                         {{/if}}
-    
-    
+
+
                                     </select>
-                                    <input name="type_id" required >
+                                    <input name="type_id" required>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -246,7 +249,7 @@
                                     <input type="file" class="form-control" name="picture">
                                 </div>
                             </div>
-    
+
                         </div>
                     </div>
                 </div>
@@ -262,3 +265,103 @@
     </div><!-- /.modal-dialog -->
 </div>
 <!--End Item Modal  Update-->
+<!-- Warehouse Modal  create-->
+<div class="modal fade" id="modalAddWarehouse" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="warehouses/add" method="POST" id="formAddWarehouse" class="form-horizontal">
+                <div class="modal-header">
+
+                    <h3 class="modal-title"></h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+
+                </div>
+                <div class="modal-body form">
+
+                    <div class="form-body">
+
+                        <!-- formula rio de cuerpo -->
+                        <div class="form-body">
+                            <div class="form-group">
+
+                                <label class="control-label col-md-12">Nombre almacén</label>
+                                <div class="col-md-12">
+                                    <input name="name" placeholder="Escriba almacén" class="form-control" type="text"
+                                        required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <label class="control-label col-md-12">Nombre Dirección</label>
+                                <div class="col-md-12">
+                                    <input name="address" placeholder="Escriba Dirección" class="form-control"
+                                        type="text" required>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Guardar
+                        <span class="fa fa-save" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel
+                    </button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<!--End Warehouse Modal  Create-->
+<!--Warehouse Modal  Update-->
+<div class="modal fade" id="modalEditWarehouse" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="warehouses/edit" id="formEditWarehouse" method="POST" class="form-horizontal">
+                <div class="modal-header">
+
+                    <h3 class="modal-title"></h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+
+                </div>
+                <div class="modal-body form">
+
+                    <div class="form-body">
+
+                        <!-- formula rio de cuerpo -->
+                        <div class="form-body">
+                            
+                            <div class="form-group">
+                                
+                                <label class="control-label col-md-12">Nombre almacén</label>
+                                <div class="col-md-12">
+                                    <input name="warehouse_id" required hidden>
+                                    <input name="name" placeholder="Escriba almacén" class="form-control" type="text" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                            
+                                <label class="control-label col-md-12">Nombre Dirección</label>
+                                <div class="col-md-12">
+                                    <input name="address" placeholder="Escriba Dirección" class="form-control" type="text" required>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary">Guardar
+                        <span class="fa fa-save" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel
+                    </button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<!--End Warehouse Modal  Update-->
