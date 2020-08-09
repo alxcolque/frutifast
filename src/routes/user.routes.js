@@ -35,12 +35,12 @@ router.get("/cliente", isLoggedIn, renderUserCli);
 
 router.get("/profile", isLoggedIn, renderProfile);
 router.get("/profile/edit", isLoggedIn, renderProfileEdit);
-router.post("/profile/edit/:id", isLoggedIn, cpUpload, async(req, res) => {
+router.post("/profile/edit/:id", isLoggedIn, cpUpload,(req, res) => {
   const { name, pic } = req.body;
   let pict = req.files["pic"][0];
-  await User.update(req.params.id, name, pict.filename);
+  User.update(req.params.id, name, pict.filename);
   req.flash("success", "Perfil actualizado exitosamente");
-  res.redirect("profile");
+  res.redirect("/profile");
   
 });
 

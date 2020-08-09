@@ -88,7 +88,11 @@ passport.deserializeUser(async (user_id, done) => {
   try {
     const rows = await pool.query("SELECT user_id,name,user_name,password,rol,pic,(CASE rol WHEN 1 THEN 'CLIENTE' WHEN 2 THEN 'RECEPCIONISTA' WHEN 3 THEN 'GERENTE' ELSE 'ADMINISTRADOR' END) as role FROM users WHERE user_id = ?", [user_id]);
     //done(null, true);
-    done(null, rows[0]);
+    if(rows){
+      done(null, rows[0]);
+    }else{
+      done(null, true);
+    }
   } catch (err) {
     done(null, true);
   }

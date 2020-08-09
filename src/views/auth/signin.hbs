@@ -7,15 +7,15 @@
                     <div class="card-header">
                         <h3>Iniciar Sesión</h3>
                     </div>
-                    <img src="/img/logo.png" alt="Logo Fazt" class="card-img-top mx-auto m-2 rounded-circle w-50">
+                    <img src="/img/logo/logo4.png" alt="Logo Kulking" class="card-img-top mx-auto m-2 rounded-circle w-50">
                     <div class="card-body">
                         <form action="/signin" method="POST">
                             <div class="form-group">
                                 <input type="text" name="user_name" placeholder="Nombre de Usuario" class="form-control"
-                                    autofocus>
+                                    autofocus required>
                             </div>
                             <div class="form-group">
-                                <input type="password" name="password" placeholder="Password" class="form-control">
+                                <input type="password" name="password" placeholder="Password" class="form-control" required>
                             </div>
                             <button class="btn btn-primary btn-block">
                                 Ingresar
