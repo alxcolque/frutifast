@@ -2,41 +2,49 @@ const pool = require("../connectionDB");
 module.exports = {
   getAll() {
     return new Promise((resolve, reject) => {
-      pool.query("SELECT * FROM stocks ORDER BY stock_id", (err, stocks) => {
-        if (err) reject(err);
-        else resolve(stocks);
-      });
+      pool.query(
+        "SELECT s.warehouse_id, s.item_id, w.name as warehouse, i.name as item, i.price, quantity, t.unit, picture FROM stocks s, items i, warehouses w, types t WHERE t.type_id = i.type_id AND i.item_id = s.item_id AND s.warehouse_id = w.warehouse_id",
+        (err, stocks) => {
+          if (err) reject(err);
+          else resolve(stocks);
+        }
+      );
     });
   },
 
-  add(name) {
-    const newType = {
-      name,
+  add(warehouse_id, item_id, quantity) {
+    const newRow = {
+      warehouse_id,
+      item_id,
+      quantity,
     };
     return new Promise((resolve, reject) => {
-      pool.query("INSERT INTO stocks set ?", [newType], (err) => {
+      pool.query("INSERT INTO stocks set ?", [newRow], (err) => {
         if (err) reject(err);
         else resolve();
       });
     });
   },
-  delete(id) {
+  delete(warehouse_id, item_id) {
     return new Promise((resolve, reject) => {
-      pool.query("DELETE FROM stocks WHERE stock_id = ?", [id], (err) => {
-        if (err) reject(err);
-        else resolve();
-      });
+      pool.query(
+        "DELETE FROM stocks WHERE warehouse_id = ? AND item_id=?",
+        [warehouse_id, item_id],
+        (err) => {
+          if (err) reject(err);
+          else resolve();
+        }
+      );
     });
   },
-  update(stock_id, name) {
-    const newType = {
-      stock_id,
-      name,
+  update(warehouse_id, item_id, quantity) {
+    const newRow = {
+      quantity,
     };
     return new Promise((resolve, reject) => {
       pool.query(
-        "UPDATE stocks set ? WHERE stock_id = ?",
-        [newType, stock_id],
+        "UPDATE stocks set ? WHERE warehouse_id = ? AND item_id = ?",
+        [newRow, warehouse_id, item_id],
         (err) => {
           if (err) reject(err);
           else resolve();

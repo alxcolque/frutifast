@@ -2,8 +2,8 @@ const typesCtrl = {};
 const Type = require("../models/Type");
 
 typesCtrl.addType = async (req, res) => {
-  const { name } = req.body;
-  await Type.add(name).then(
+  const { name, unit} = req.body;
+  await Type.add(name, unit).then(
     req.flash("success", "Se ha registado con éxito"),
     res.redirect("/types")
   );
@@ -24,8 +24,8 @@ typesCtrl.deleteType = async (req, res) => {
 };
 
 typesCtrl.editType = async (req, res) => {
-  const { type_id, name } = req.body;
-  await Type.update(type_id, name).then(
+  const { type_id, name, unit } = req.body;
+  await Type.update(type_id, name, unit).then(
     req.flash("success", "Actualización exitosa"),
     res.redirect("/types")
   );

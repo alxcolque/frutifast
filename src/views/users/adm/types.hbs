@@ -43,6 +43,7 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>Tipo</th>
+                                    <th>Unidades</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -53,10 +54,11 @@
                                 <tr role="row" class="odd">
                                     <td>{{this.type_id}}</td>
                                     <td class="sorting_1">{{this.name}}</td>
+                                    <td class="sorting_1">{{this.unit}}</td>
                                     <td>
                                         <center>
                                             <button class="btn btn-warning" title="Editar Tipo"
-                                                onclick="updateTypes('{{this.type_id}}','{{this.name}}')"><i
+                                                onclick="updateTypes('{{this.type_id}}','{{this.name}}','{{this.unit}}')"><i
                                                     class="fa fa-edit"></i></button>
 
                                             <a href="types/delete/{{this.type_id}}" class="btn btn-danger"><i

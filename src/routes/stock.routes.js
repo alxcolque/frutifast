@@ -6,6 +6,7 @@ const { isLoggedIn } = require("../config/auth");
 const {
   renderStocks,
   addStock,
+  editStock,
   deleteStock,
 } = require("../controllers/stock.controller");
 
@@ -15,6 +16,7 @@ router.use(isLoggedIn);
 // Routes
 router.post("/add", addStock);
 router.get("/", isLoggedIn, renderStocks);
-router.get("/delete/:id", deleteStock);
+router.post("/delete", deleteStock);
+router.post("/edit", editStock);
 
 module.exports = router;

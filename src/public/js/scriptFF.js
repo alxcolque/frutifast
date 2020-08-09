@@ -1,25 +1,14 @@
-/*$(document).ready(function () {
-  $("#btnNewType").click(function () {
-    $("#typeModal").modal();
-  });
-});*/
-
 function setTypes() {
   $("#formAddType")[0].reset(); // reset form on modals
   $("#typeModalAdd").modal("show");
   $(".modal-title").text('Nuevo Tipo');
-  /*$("#formAddType").on("submit", function (e) {
-      e.preventDefault();
-      $.post("types/add", $(this).serialize(), function (data) {
-      $.get("/");
-      });
-    });*/
 }
-function updateTypes(id, name) {
+function updateTypes(id, name, unit) {
   $("#formAddType")[0].reset();
   $("#typeModalEdit").modal("show");
   $(".modal-title").text("Modificar Tipo");
   $('[name="name"]').val(name);
+  $('[name="unit"]').val(unit);
   $('[name="type_id"]').val(id);
 }
 function setItems() {
@@ -56,3 +45,28 @@ function updateWarehouse(id, name, address) {
   $('[name="name"]').val(name);
   $('[name="address"]').val(address);
 }
+
+///Stock
+function setStoks() {
+  $("#formAddStoks")[0].reset(); // reset form on modals
+  $("#modalAddStoks").modal("show");
+  $(".modal-title").text("Nuevo Stock");
+}
+function updateStocks(warehouse_id, item_id, quantity) {
+  $("#modalEditStocks").modal("show");
+  $("#formEditStocks")[0].reset();
+  $(".modal-title").text("¿Qué cantidad mas desea añadir?");
+  $('[name="warehouse_id"]').val(warehouse_id);
+  $('[name="item_id"]').val(item_id);
+  $('[name="oldquantity"]').val(quantity);
+}
+function selectItems(item_id) {
+  $('[name="item_id"]').val(item_id);
+}
+function deleteStock(warehouse_id, item_id) {
+  $("#formDeleteStoks")[0].reset();
+  $("#modalDeleteStoks").modal("show");
+  $('[name="warehouse_id"]').val(warehouse_id);
+  $('[name="item_id"]').val(item_id);
+}
+//fin stock

@@ -9,18 +9,16 @@ module.exports = {
     });
   },
 
-  
-  add(name) {
-      const newType = {
-        name,
-      };
+  add(name, unit) {
+    const newType = {
+      name,
+      unit,
+    };
     return new Promise((resolve, reject) => {
-      pool.query("INSERT INTO types set ?", [newType],
-        (err) => {
-          if (err) reject(err);
-          else resolve();
-        }
-      );
+      pool.query("INSERT INTO types set ?", [newType], (err) => {
+        if (err) reject(err);
+        else resolve();
+      });
     });
   },
   delete(id) {
@@ -31,10 +29,11 @@ module.exports = {
       });
     });
   },
-  update(type_id, name) {
+  update(type_id, name, unit) {
     const newType = {
       type_id,
       name,
+      unit,
     };
     return new Promise((resolve, reject) => {
       pool.query(
@@ -46,5 +45,5 @@ module.exports = {
         }
       );
     });
-  }
+  },
 };
