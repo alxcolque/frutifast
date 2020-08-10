@@ -50,7 +50,7 @@ function updateWarehouse(id, name, address) {
 function setStoks() {
   $("#formAddStoks")[0].reset(); // reset form on modals
   $("#modalAddStoks").modal("show");
-  $(".modal-title").text("Nuevo Stock");
+  $(".modal-title").text("Nuevo Entrada");
 }
 function updateStocks(warehouse_id, item_id, quantity) {
   $("#modalEditStocks").modal("show");
@@ -70,3 +70,19 @@ function deleteStock(warehouse_id, item_id) {
   $('[name="item_id"]').val(item_id);
 }
 //fin stock
+
+//sales
+function setSale() {
+  $("#modalAddSales").modal("show");
+  $("#formAddSales")[0].reset(); // reset form on modals
+  $(".modal-title").text("Nuevo Salida");
+}
+
+function updateRol(user_id) {
+  $("#modalEditRol").modal("show");
+  $("#formEditRol")[0].reset(); // reset form on modals
+  $(".modal-title").text("Actualizar Rol");
+}
+function selectUser(rol) {
+  $('[name="rol"]').val(rol);
+}

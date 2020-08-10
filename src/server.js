@@ -75,6 +75,8 @@ app.use("/items", require("./routes/item.routes"));
 app.use("/profile", require("./routes/user.routes"));
 app.use("/warehouses", require("./routes/warehouse.routes"));
 app.use("/stocks", require("./routes/stock.routes"));
+app.use("/sales", require("./routes/sale.routes"));
+app.use("/personals", require("./routes/personal.routes"));
 
 // Static Files
 app.use(express.static(path.join(__dirname, "public")));

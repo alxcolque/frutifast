@@ -1,4 +1,6 @@
 const userCtrl = {};
+const Stock = require("../models/Stock");
+const Item = require("../models/Item");
 var inicio = "/";
 userCtrl.renderUserAdm = (req, res, next) => {
   inicio = "/admin";
@@ -12,9 +14,12 @@ userCtrl.renderUseRes = (req, res, next) => {
   inicio = "/recepcion";
   res.render("users/adm/");
 };
-userCtrl.renderUserCli = (req, res, next) => {
+userCtrl.renderUserCli = async (req, res, next) => {
   inicio = "/cliente";
-  res.render("users/cli/");
+  const items = await Item.getAll();
+  Stock.getAll().then((stocks) => {
+    res.render("users/cli/", { stocks, items });
+  });
 };
 userCtrl.renderProfile = (req, res, next) => {
   res.render("users/profile");

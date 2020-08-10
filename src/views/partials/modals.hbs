@@ -415,6 +415,7 @@
 
                                     </select>
                                     <input name="item_id" required hidden>
+                                    <input name="user_id" value="{{{user.user_id}}}" required hidden>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -460,6 +461,7 @@
                             <input name="warehouse_id" required hidden>
                             <input name="item_id" required hidden>
                             <input name="oldquantity" required hidden>
+                            <input name="user_id" value="{{{user.user_id}}}" required hidden>
                             <div class="form-group">
                                 <label class="control-label col-md-12">Cantidad</label>
                                 <div class="col-md-12">
@@ -508,4 +510,110 @@
             </form>
         </div>
     </div>
+</div>
+
+<div class="modal fade" id="modalAddSales" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- formula rio de cuerpo -->
+            <form action="sales/add" method="POST" id="formAddSales" class="form-horizontal">
+                <div class="modal-header">
+
+                    <h3 class="modal-title"></h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+
+                </div>
+                <div class="modal-body form">
+
+                    <div class="form-body">
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="control-label col-md-12">Seleccione Producto</label>
+                                <div class="col-md-12">
+                                    <select class="form-control input-lg" id="sel_parti"
+                                        onchange="selectItems(this.value)">
+                                        {{#if items}}
+                                        <option value="">Selecione Producto</option>
+                                        {{#each items}}
+                                        <option value="{{this.item_id}}">{{this.name}}</option>
+                                        {{/each}}
+                                        {{else}}
+                                        {{/if}}
+
+                                    </select>
+                                    <input name="item_id" required >
+                                    <input name="user_id" value="{{{user.user_id}}}" required >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-12">Cantidad</label>
+                                <div class="col-md-12">
+                                    <input type="number" value="1" name="quantity" min="1" max="10000" required>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Guardar
+                        <span class="fa fa-save" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel
+                    </button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade" id="modalEditRol" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- formula rio de cuerpo -->
+            <form action="personals/edit" method="POST" id="formEditRol" class="form-horizontal">
+                <div class="modal-header">
+
+                    <h3 class="modal-title"></h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+
+                </div>
+                <div class="modal-body form">
+
+                    <div class="form-body">
+                        <div class="form-body">
+                            <div class="form-group">
+                                <label class="control-label col-md-12">Seleccione Producto</label>
+                                <div class="col-md-12">
+                                    <select class="form-control input-lg" id="sel_parti"
+                                        onchange="selectUser(this.value)">
+                                        <option value="">Selecione Producto</option>
+                                        <option value="1">Cliente</option>
+                                        <option value="2">Recepcionista</option>
+                                        <option value="3">Gerente</option>
+                                        <option value="4">Administrador</option>
+                                        
+
+                                    </select>
+                                    <input name="rol" value="1" required hidden>
+                                    <input name="user_id" value="{{{user.user_id}}}" required hidden>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Guardar
+                        <span class="fa fa-save" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel
+                    </button>
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
 </div>

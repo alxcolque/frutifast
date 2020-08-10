@@ -25,6 +25,19 @@ module.exports = {
       });
     });
   },
+  addPurchase(user_id, item_id, quantity) {
+    const newRow = {
+      user_id,
+      item_id,
+      quantity,
+    };
+    return new Promise((resolve, reject) => {
+      pool.query("INSERT INTO purchases set ?", [newRow], (err) => {
+        if (err) reject(err);
+        else resolve();
+      });
+    });
+  },
   delete(warehouse_id, item_id) {
     return new Promise((resolve, reject) => {
       pool.query(

@@ -1,9 +1,9 @@
 {{>message}}
 <div class="card">
     <div>
-        <button title="Añadir Nuevo" class="btn btn-info btn-sm" onclick="setStoks()">
+        <button title="Añadir Nuevo" class="btn btn-info btn-sm" onclick="setSale()">
             <i class="fa fa-plus"></i>
-            Añadir Productos al Almacén
+            Realizar venta
         </button>
     </div>
 
@@ -18,16 +18,15 @@
                     <th>Foto</th>
                     <th>Precio</th>
                     <th>Cantidad</th>
-                    <th>Unidad</th>
-                    <th>Acciones</th>
+                    <th>Total</th>
                 </tr>
             </thead>
             <tbody>
-                {{#if stocks}}
+                {{#if sales}}
 
-                {{#each stocks}}
+                {{#each sales}}
                 <tr role="row" class="odd">
-                    <td class="sorting_1">{{this.item_id}}</td>
+                    <td class="sorting_1">{{this.sale_id}}</td>
                     <td class="sorting_1">{{this.item}}</td>
                     <td class="sorting_1">
                         <center>
@@ -36,19 +35,7 @@
                     </td>
                     <td class="sorting_1">{{this.price}}</td>
                     <td class="sorting_1">{{this.quantity}}</td>
-                    <td class="sorting_1">{{this.unit}}</td>
-                    <td>
-                        <center>
-                            <button class="btn btn-success" title="Aumentar"
-                                onclick="updateStocks('{{this.warehouse_id}}','{{this.item_id}}','{{this.quantity}}')">
-                                Aumentar</button>
-                            <button class="btn btn-danger" title="Elimnar"
-                                onclick="deleteStock('{{this.warehouse_id}}','{{this.item_id}}')">
-                                <i class="fas fa-trash"></i></button>
-
-
-                        </center>
-                    </td>
+                    <td class="sorting_1">{{this.total}}</td>
                 </tr>
                 {{/each}}
                 {{else}}

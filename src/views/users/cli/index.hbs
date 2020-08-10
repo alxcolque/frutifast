@@ -7,8 +7,8 @@
                     <div class="card-body">
                         <h3>Bienvenido {{user.name}}</h3>
                         <h4>{{user.username}}</h4>
-                        <a href="/links" class="btn btn-primary m-4">
-                            Save your Links
+                        <a href="/cliente" class="btn btn-primary m-4">
+                            OK
                         </a>
                     </div>
                 </div>
@@ -18,33 +18,45 @@
     </div>
 </section>
 <section class="p-5">
-    <h4>All notes</h4>
+    <h4>Todos los productos</h4>
 
     <div class="row">
-
-        <div class="col-md-3">
-            <div class="card">
+        {{#if stocks}}
+        {{#each stocks}}
+        <div class="col-md-3 mt-3">
+            <div class="card bg-primary text-light">
+                <div class="card-header">
+                    <i class="fas fa-business-time"></i><strong class="card-title pl-2">{{this.item}}</strong>
+                </div>
                 <div class="card-body">
-                    <h4 class="card-title d-flex justify-content-between align-center">
-                        Desc<a href="#"><i class="fa fa-pencil"></i></a>
-                    </h4>
-                    <p>Precio 45 Bs.</p>
-                    <form action="#" method="POST">
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button type="submit" class="btn btn-primary btn-block btn-sm">
-                            Ordenar
-                        </button>
-                    </form>
+                    <center>
+                        <img class="" src="img/upload/{{picture}}" width="100%" height="100%" alt="Card image cap">
+                        <h5 class="text-sm-center mt-2 mb-1">{{this.price}} BS</h5>
+                    </center>
+                    <div class="location text-sm-center">{{type}}</div>
+                    <hr>
+                    <div class="card-text text-sm-center">
+                        <center>
+                            <button class="btn btn-warning" title="Editar Tipo"
+                                onclick="updateRol('{{item_id}})"><i
+                                    class="fas fa-shopping-cart"></i>Ordenar</button>
+    
+                            
+                        </center>
+                    </div>
                 </div>
             </div>
         </div>
-
+    {{/each}}
+    {{else}}
+    
+    {{/if}}
     </div>
 </section>
-<section>
+<section class="p-5">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Orders </h4>
+            <h4 class="card-title">Ordenes </h4>
         </div>
         <div class="card-body--">
             <div class="">
@@ -52,9 +64,9 @@
                     <thead>
                         <tr>
                             <th class="serial">#</th>
-                            <th>Product</th>
-                            <th>Quantity</th>
-                            <th>Status</th>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Estado</th>
                         </tr>
                     </thead>
                     <tbody>

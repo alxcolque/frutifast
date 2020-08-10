@@ -34,7 +34,7 @@ CREATE TABLE items(
 );
 
 CREATE TABLE sales(
-	sales_id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	sale_id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	user_id INT(11) UNSIGNED NOT NULL,
 	warehouse_id INT(11) UNSIGNED NOT NULL,
 	total VARCHAR(50) NOT NULL,
@@ -85,12 +85,12 @@ CREATE TABLE stocks(
 );
 
 CREATE TABLE sales_detail(
-	user_id INT(11) UNSIGNED NOT NULL,
+	sale_id INT(11) UNSIGNED NOT NULL,
 	item_id INT(11) UNSIGNED NOT NULL,
 	quantity INT(6) NOT NULL,
-	PRIMARY KEY(user_id,item_id),
-	CONSTRAINT ´fk_user_sales_detail´
-	FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+	PRIMARY KEY(sale_id,item_id),
+	CONSTRAINT ´fk_sales_sales_detail´
+	FOREIGN KEY(sale_id) REFERENCES sales(sale_id) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT ´fk_items_sales_detail´
 	FOREIGN KEY(item_id) REFERENCES items(item_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
