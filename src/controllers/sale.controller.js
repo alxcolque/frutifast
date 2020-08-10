@@ -1,3 +1,8 @@
+var PDFDocument, doc;
+var fs = require("fs");
+PDFDocument = require("pdfkit");
+doc = new PDFDocument();
+
 const salesCtrl = {};
 const Sale = require("../models/Sale");
 const Item = require("../models/Item");
@@ -77,6 +82,19 @@ salesCtrl.editSale = async (req, res) => {
     );
     res.redirect("/sales");
   }
+};
+salesCtrl.reporteSale = async(req, res) => {
+  const items = await Item.getAll();
+  Sale.getAll().then((sales) => {
+    doc.pipe(fs.createWriteStream("/src/public/ReporteSales.pdf"));
+
+    // Establecemos un titulo y le pasamos las coordenadas X y Y.
+doc.fontSize(15).text('¡ Mi Titulo !', 50, 50);
+
+    doc.end();
+    //req.flash("success", "Reporte generado con éxito");
+    res.render("users/sales", { sales, items });
+  });
 };
 
 module.exports = salesCtrl;
