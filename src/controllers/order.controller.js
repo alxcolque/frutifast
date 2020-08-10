@@ -11,8 +11,9 @@ ordersCtrl.renderAdd = async (req, res) => {
 ordersCtrl.addOrder = async (req, res, user) => {
   let state = 1;
   const {  user_id, item_id,address, quantity } = req.body;
+  //console.log(user_id, item_id, address, quantity, state);
   try {
-    const insertado = await Order.add(user_id, item_id, address, quantity,state);
+    const insertado = await Order.add(user_id, item_id, address, quantity, state);
 
     if (insertado) {
       //console.log(insertado);
@@ -30,11 +31,9 @@ ordersCtrl.addOrder = async (req, res, user) => {
 };
 
 ordersCtrl.renderOrders = async (req, res) => {
-  /*const items = await Item.getAll();
   Order.getAll().then((orders) => {
-    res.render("users/orders", { orders, items });
-  });*/
-  res.render("users/adm/orders");
+    res.render("users/adm/orders", { orders });
+  });
 };
 
 module.exports = ordersCtrl;

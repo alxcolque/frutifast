@@ -31,7 +31,7 @@ app.engine(
     helpers: require("./config/haceunminuto"),
   })
 );
-
+//para condicion
 handlebars.registerHelper("ifCond", function (v1, v2, options) {
   if (v1 === v2) {
     return options.fn(this);
@@ -39,6 +39,25 @@ handlebars.registerHelper("ifCond", function (v1, v2, options) {
   return options.inverse(this);
 });
 app.set('view engine', '.hbs');
+//para case
+handlebars.registerHelper("switch", function (value, options) {
+  this.switch_value = value;
+  this.switch_break = false;
+  return options.fn(this);
+});
+
+handlebars.registerHelper("case", function (value, options) {
+  if (value == this.switch_value) {
+    this.switch_break = true;
+    return options.fn(this);
+  }
+});
+
+handlebars.registerHelper("default", function (value, options) {
+  if (this.switch_break == false) {
+    return value;
+  }
+});
 
 
 

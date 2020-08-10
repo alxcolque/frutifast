@@ -18,6 +18,48 @@
     </div>
 </section>
 <section class="p-5">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Mis Ordenes </h4>
+        </div>
+        <div class="card-body--">
+            <div class="">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="serial">#</th>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#if orders}}
+
+                        {{#each orders}}
+                        <tr role="row" class="odd">
+                            <td>{{this.order_id}}</td>
+                            <td class="sorting_1">{{this.name}}</td>
+                            <td class="sorting_1">{{this.quantity}}</td>
+                            <td> {{#switch this.stat }}
+                                    {{#case 'PENDIENTE'}} <span class="bg-warning">{{this.stat}}</span>{{/case}}
+                                    {{#case 'COMPLETADO'}} <span class="bg-success">{{this.stat}}</span> {{/case}}
+                                    {{#case 'RECHAZADO'}} <span class="bg-danger">{{this.stat}}</span>{{/case}}
+                                
+                                {{/switch}}</td>
+
+                        </tr>
+                        {{/each}}
+                        {{else}}
+
+                        {{/if}}
+                    </tbody>
+                </table>
+            </div> <!-- /.table-stats -->
+        </div>
+    </div>
+</section>
+<section class="p-5">
     <h4>Todos los productos</h4>
 
     <div class="row">
@@ -37,9 +79,8 @@
                     <hr>
                     <div class="card-text text-sm-center">
                         <center>
-                            <a href="/cliente/add" class="btn btn-warning" title="Ordenar
-                                "><i
-                                    class="fas fa-shopping-cart"></i>Ordenar</a>
+                            <button class="btn btn-warning" title="Ordenar
+                                " onclick="orderAdd('{{this.item_id}}')"><i class="fas fa-shopping-cart"></i>Ordenar</button>
                         </center>
                     </div>
                 </div>
@@ -49,68 +90,5 @@
     {{else}}
     
     {{/if}}
-    </div>
-</section>
-<section class="p-5">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">Ordenes </h4>
-        </div>
-        <div class="card-body--">
-            <div class="">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th class="serial">#</th>
-                            <th>Producto</th>
-                            <th>Cantidad</th>
-                            <th>Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="serial">1.</td>
-                            <td> <span class="product">Naranja</span> </td>
-                            <td><span class="count">21</span></td>
-                            <td>
-                                <span class="bg-danger">Rechazado</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="serial">2.</td>
-                            <td> <span class="product">Mandaina</span> </td>
-                            <td><span class="count">25</span></td>
-                            <td>
-                                <span class="bg-success">Complete</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="serial">3.</td>
-                            <td> <span class="product">Durazno</span> </td>
-                            <td><span class="count">35</span></td>
-                            <td>
-                                <span class="bg-success">Complete</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="serial">4.</td>
-                            <td> <span class="product">Platano</span> </td>
-                            <td><span class="count">10</span></td>
-                            <td>
-                                <span class="bg-warning">Pending</span>
-                            </td>
-                        </tr>
-                        <tr class=" pb-0">
-                            <td class="serial">5.</td>
-                            <td> <span class="product">Uva</span> </td>
-                            <td><span class="count">5</span></td>
-                            <td>
-                                <span class="bg-success">Complete</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div> <!-- /.table-stats -->
-        </div>
     </div>
 </section>

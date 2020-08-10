@@ -3,7 +3,7 @@ module.exports = {
   getAll() {
     return new Promise((resolve, reject) => {
       pool.query(
-        "SELECT sd.item_id,sd.sale_id, i.name as item, picture ,i.price, quantity,(i.price*quantity) as total FROM items i, sales s, sales_detail sd WHERE s.sale_id = sd.sale_id AND i.item_id = sd.item_id",
+        "SELECT order_id,o.user_id,u.name,i.name AS pname, quantity, (CASE state WHEN 1 THEN 'PENDIENTE' WHEN 2 THEN 'COMPLETADO' ELSE 'RECHAZADO' END) AS stat FROM orders o, items i,users u WHERE i.item_id = o.item_id AND u.user_id = o.user_id",
         (err, sales) => {
           if (err) reject(err);
           else resolve(sales);
@@ -35,11 +35,11 @@ module.exports = {
       });
     });
   },
-  getQuant(warehouse_id, item_id) {
+  getById(user_id) {
     return new Promise((resolve, reject) => {
       pool.query(
-        "SELECT quantity as cuan FROM stocks WHERE warehouse_id = ? AND item_id = ?",
-        [warehouse_id, item_id],
+        "SELECT order_id,i.name, quantity, (CASE state WHEN 1 THEN 'PENDIENTE' WHEN 2 THEN 'COMPLETADO' ELSE 'RECHAZADO' END) AS stat FROM orders o, items i WHERE i.item_id = o.item_id AND o.user_id = ?",
+        [user_id],
         (err, cant) => {
           if (err) reject(err);
           else resolve(cant);

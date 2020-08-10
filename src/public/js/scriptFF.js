@@ -86,3 +86,13 @@ function updateRol(user_id) {
 function selectUser(rol) {
   $('[name="rol"]').val(rol);
 }
+function ordenar(item_id){
+  
+  //alert(item_id);
+}
+function orderAdd(item_id) {
+  $("#modalAddOrder").modal("show");
+  $("#formAddOrder")[0].reset(); // reset form on modals
+  $(".modal-title").text("Realizar Orden");
+  $('[name="item_id"]').val(item_id);
+}
