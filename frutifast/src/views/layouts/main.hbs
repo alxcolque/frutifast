@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+
+{{#if user}}
+
+{{#ifCond user.rol "1"}}
+    {{>head}}
+    {{>navigation}}
+    <main>
+        {{{ body }}}
+    </main>
+    {{>modals}}
+    {{>foot}}
+{{else}}
+    {{>admin_head}}
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+        <!-- Left Panel -->
+        {{>admin_sidebar}}
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <!-- Main Content -->
+            <div id="content">
+                <!-- Header-->
+                {{>admin_topbar}}
+                <!-- Begin Page Content -->
+                <div class="container-fluid ">
+                    {{{ body }}}
+                <!-- Begin Page Content -->
+                </div>
+            </div>
+            <!-- End of Main Content -->
+                <!-- Footer -->
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; Sitio web 2020</span>
+                        </div>
+                    </div>
+                </footer>
+                <!-- End of Footer -->
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+    {{>modals}}
+    {{>admin_foot}}
+    
+{{/ifCond}}
+
+{{else}}
+    {{>head}}
+    {{>navigation}}
+    <main>
+        {{{ body }}}
+    </main>
+    {{>foot}}
+
+{{/if}}
+</body>
+
+</html>
