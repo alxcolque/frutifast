@@ -98,6 +98,7 @@ app.use("/sales", require("./routes/sale.routes"));
 app.use("/personals", require("./routes/personal.routes"));
 app.use("/cliente", require("./routes/order.routes"));
 app.use("/orders", require("./routes/order.routes"));
+app.use("/cat", require("./routes/cat.routes"));
 
 // Static Files
 app.use(express.static(path.join(__dirname, "public")));

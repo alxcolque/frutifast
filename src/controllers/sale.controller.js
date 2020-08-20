@@ -43,6 +43,8 @@ salesCtrl.renderSales = async (req, res) => {
   });
 };
 
+
+
 salesCtrl.deleteSale = async (req, res) => {
   const { warehouse_id, item_id } = req.body;
   await Sale.delete(warehouse_id, item_id).then(

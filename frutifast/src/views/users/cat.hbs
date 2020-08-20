@@ -1,0 +1,32 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Ventas por categorias</h1>
+    
+</div>
+{{>message}}
+
+<div class="row">
+    <div class="col-md-12 mt-3">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Categoria</th>
+                    <th>total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#if cat}}
+
+                {{#each cat}}
+                <tr role="row" class="odd">
+                    <td class="sorting_1">{{this.name}}</td>
+                    <td class="sorting_1">{{this.total}}</td>
+                </tr>
+                {{/each}}
+                {{else}}
+
+                {{/if}}
+            </tbody>
+        </table>
+    </div>
+
+</div>

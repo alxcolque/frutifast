@@ -16,13 +16,22 @@ passport.use("local.signin",new LocalStrategy({
       ]);
       if (rows.length > 0) {
         const user = rows[0];
-        const validPassword = await comprob.matchPassword(password,user.password);
+        //const validPassword = await comprob.matchPassword(password,user.password);
         //console.log(await comprob.encryptPassword(password), user.password);
-        if (validPassword) {
-          return done(null, user, req.flash("success", "Bienvenido " + user.name));
-        } else {
-          return done(null, false, req.flash("message", "Contraseña incorrecta"));
-        }
+        //if (validPassword) {
+          if (password == user.password) {
+            return done(
+              null,
+              user,
+              req.flash("success", "Bienvenido " + user.name)
+            );
+          } else {
+            return done(
+              null,
+              false,
+              req.flash("message", "Contraseña incorrecta")
+            );
+          }
       } else {
         return done(
           null,
@@ -64,7 +73,7 @@ passport.use("local.signup",new LocalStrategy({
           rol,
           pic,
         };
-        newUser.password = await comprob.encryptPassword(password);
+        //newUser.password = await comprob.encryptPassword(password);
         // Saving in the Database
         const result = await pool.query("INSERT INTO users SET ? ", newUser);
         newUser.user_id = result.insertId;

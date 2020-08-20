@@ -3,7 +3,18 @@ module.exports = {
   getAll() {
     return new Promise((resolve, reject) => {
       pool.query(
-        "SELECT sd.item_id,sd.sale_id, i.name as item, picture ,i.price, quantity,(i.price*quantity) as total, s.fecha FROM items i, sales s, sales_detail sd WHERE s.sale_id = sd.sale_id AND i.item_id = sd.item_id",
+        "SELECT s.sale_id AS idSale, sd.item_id,sd.sale_id, i.name as item, picture ,i.price, quantity,(i.price*quantity) as total, s.fecha FROM items i, sales s, sales_detail sd WHERE s.sale_id = sd.sale_id AND i.item_id = sd.item_id ORDER BY 1 ASC",
+        (err, sales) => {
+          if (err) reject(err);
+          else resolve(sales);
+        }
+      );
+    });
+  },
+  getAllCat() {
+    return new Promise((resolve, reject) => {
+      pool.query(
+        "select t.name,SUM(ds.quantity * i.price) total from items i, sales_detail ds, types t WHERE i.item_id = ds.item_id GROUP BY t.name",
         (err, sales) => {
           if (err) reject(err);
           else resolve(sales);
